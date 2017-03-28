@@ -37,12 +37,13 @@ function look(EO) {
     var degree360 = 0;
     if(x2 < x1 && y2 < y1) degree360 = 180 + (90 - degree);
     if(x2 > x1 && y2 < y1) degree360 = 90 + degree;
-    if(x2 > x1 && y2 > y1) degree360 -=  degree;
+    if(x2 > x1 && y2 > y1) degree360 =90 -  degree;
     if(x2 < x1 && y2 > y1) degree360 = degree - 90;
 
-    var pogrewnost=-87;
+
+    //var pogrewnost=-87;
     console.log(degree);
-    degree360+=pogrewnost;
+    //degree360+=pogrewnost;
     player.style.transform="translate(-50%,-50%) rotate(-"+degree360+"deg)";
 
 
