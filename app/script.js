@@ -16,36 +16,38 @@ function look(EO) {
     EO=EO||window.event;
 
     // получаем координаты блока с текстом
-    var x1 = player.offsetLeft;
-    var y1 = player.offsetTop;
+    var ctr = {
+        x:player.offsetLeft,
+        y:player.offsetTop,
+    }
+    var ms = {
+        x:EO.pageX,
+        y:EO.pageY
+    };
 
 
-    // координаты курсора
-    var x2 = EO.pageX;
-    var y2 = EO.pageY;
 
-    // координаты третей точки, чтоб получить треугольник
-    var x3 = x2;
-    var y3 = y1;
+     function GetAngle(ms, ctr) {
+        var x     = ms.x - ctr.x,
+            y     = - ms.y + ctr.y,
+            hyp   = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)),
+            angle = Math.acos(x / hyp);
 
+        if (y < 0) {
+            angle = 2 * Math.PI - angle;
+        }
 
-    // высчитываем угол
-    var cos = (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2))+((x1-x3)*(x1-x3))+((y1-y3)*(y1-y3))-((x2-x3)*(x2-x3))-((y2-y3)*(y2-y3)))/(2*Math.sqrt(((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)))*Math.sqrt(((x1-x3)*(x1-x3))+((y1-y3)*(y1-y3))));
-    var rad = Math.acos(cos);
-    var degree = rad * 180 / Math.PI;
+        return radToDeg(angle);
+    }
 
-    var degree360 = 0;
-    if(x2 < x1 && y2 < y1) degree360 = 180 + (90 - degree);
-    if(x2 > x1 && y2 < y1) degree360 = 90 + degree;
-    if(x2 > x1 && y2 > y1) degree360 =90 -  degree;
-    if(x2 < x1 && y2 > y1) degree360 = degree - 90;
-
-
-    //var pogrewnost=-87;
-    console.log(degree);
-    //degree360+=pogrewnost;
-    player.style.transform="translate(-50%,-50%) rotate(-"+degree360+"deg)";
-
+    var  radToDeg = function(r) {
+        return (r * (180 / Math.PI));
+    };
+    var angle=GetAngle(ms,ctr).toFixed(3);
+    var angle_cursor =angle + 90;
+    console.log(angle + ' - '+angle_cursor );
+    player.style.transform="translate(-50%,-50%) rotate(-"+angle+"deg)";
+    document.querySelector("#cursor").style.transform="translate(0%,-50%) rotate(-"+angle_cursor+"deg)"; // +90
 
     //player.transform.rotate(h+'deg');
 

@@ -8,8 +8,7 @@ html, body {
 .container {
   width: 100vw;
   height: 100vh;
-  background: url("/img/fon2.jpg");
-  cursor: none; }
+  background: url("/img/fon2.jpg"); }
 
 h1 {
   padding: 0;
@@ -33,10 +32,9 @@ h1 {
   width: 1px;
   height: 500px;
   display: block;
-  transform: translate(1px, 1px) rotate(-269deg);
+  left: 50%;
+  top: 50%;
+  transform: translate(0%, -50%) rotate(90deg);
   position: absolute;
-  top: -174px;
-  left: 330px;
   z-index: 0;
-  opacity: 0.5;
-  margin-left: 3.3vw; }
+  opacity: 0.5; }
