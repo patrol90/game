@@ -5,6 +5,7 @@
 
 document.addEventListener("DOMContentLoaded", ready);
 var playerEl=document.getElementById('player');
+var pressed={};
 
 var ctr = { //player position
     x:playerEl.offsetLeft,
@@ -12,6 +13,9 @@ var ctr = { //player position
 };
 
 function ready() {
+    document.addEventListener("keydown",DownKey,false);
+    document.addEventListener("keydown",MovePlayer,false);
+    document.addEventListener("keyup",UpKey,false);
     player.posX=playerEl.offsetLeft;
     player.posY=playerEl.offsetTop;
     CreateZomby(15);
@@ -27,7 +31,7 @@ var zomby = {
 var player= {
     posX:0,
     posY:0,
-    speed:5,
+    speed:1,
 
 };
 
@@ -39,18 +43,81 @@ function look(EO) {
         x:EO.pageX,
         y:EO.pageY
     };
-
-
     var angle=GetAngle(ms,ctr).toFixed(3);
     playerEl.style.transform="translate(-50%,-50%) rotate(-"+angle+"deg)";
+}
+
+function MovePlayer(EO) {
+    EO = EO || window.event;
+    if (player.posX<playerEl.offsetWidth/2){
+        player.posX=playerEl.offsetWidth/2;
+    }
+
+    if (player.posX>window.innerWidth - playerEl.offsetWidth/2){
+        player.posX=window.innerWidth - playerEl.offsetWidth/2;
+    }
+    if (player.posY+playerEl.offsetHeight/2>window.innerHeight){
+        player.posY=window.innerHeight - playerEl.offsetHeight/2;
+    }
+    if (player.posY<playerEl.offsetHeight/2){
+        player.posY=playerEl.offsetHeight/2;
+    }
+
+    if (pressed["87"]&& pressed["68"]) {
+        player.posY -= player.speed/3;
+        player.posX += player.speed/3;
+    }
+    if (pressed["83"]&& pressed["68"]) {
+        player.posY += player.speed/3;
+        player.posX += player.speed/3;
+    }
+    if (pressed["83"]&& pressed["65"]) {
+        player.posY += player.speed/3;
+        player.posX -= player.speed/3;
+    }
+    if (pressed["87"]&& pressed["65"]) {
+        player.posY -= player.speed/3;
+        player.posX -= player.speed/3;
+    }
+    if (pressed["87"]) {
+        player.posY -= player.speed;
+    }
+    if (pressed["83"]) {
+        player.posY += player.speed;
+    }
+    if (pressed["68"]) {
+        player.posX += player.speed;
+    }
+    if (pressed["65"]) {
+        player.posX -= player.speed;
+    }
 
 
 
 }
+
+
+function DownKey(EO) {
+    EO = EO || window.event;
+    var keycode;
+    if (EO.keyCode) keycode = EO.keyCode; // IE
+    else if (EO.which) keycode = EO.which; // all browsers
+    pressed[keycode]=true;
+
+}
+function UpKey(EO) {
+    EO = EO || window.event;
+    var keycode;
+    if (EO.keyCode) keycode = EO.keyCode; // IE
+    else if (EO.which) keycode = EO.which; // all browsers
+    pressed[keycode]=false;
+}
+
+
 function Update() {
+    MovePlayer();
     playerEl.style.left=player.posX+"px";
     playerEl.style.top=player.posY+"px";
-
     document.addEventListener("mousemove",look,false);
     document.addEventListener("keyup",function () {
         var arr=document.querySelectorAll(".zomby");
@@ -59,14 +126,15 @@ function Update() {
             arr[i].style.top=player.posY+"px";
         }
     },false);
-    document.addEventListener("keydown",moveUp,false);
-    document.addEventListener("keydown",moveDown,false);
-    document.addEventListener("keydown",moveRight,false);
-    document.addEventListener("keydown",moveLeft,false);
-    document.addEventListener("keydown",moveLeft,false);
 
-    requestAnimationFrame(Update)
+    requestAnimationFrame(Update);
+
 }
+
+
+
+
+
 
 function moveUp(EO) {
     EO = EO || window.event;
@@ -173,4 +241,9 @@ function GetAngle(ms, ctr) { //узнать угол поворота
     };
     return radToDeg(angle);
 }
+function isEmpty(object) {
+    for (var key in object)
+        if (object.hasOwnProperty(key)) return true;
 
+    return false;
+}
