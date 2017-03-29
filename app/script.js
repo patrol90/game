@@ -3,9 +3,12 @@
  */
 "use strict";
 
+
+
 document.addEventListener("DOMContentLoaded", ready);
 var playerEl=document.getElementById('player');
 var pressed={};
+var zombies={};
 
 var ctr = { //player position
     x:playerEl.offsetLeft,
@@ -23,11 +26,48 @@ function ready() {
 
 }
 
-var zomby = {
-    width:60,
-    height:70,
-    background:"../img/slow4_a.png",
-    };
+function TZomby(id,width,height,speed,damage,background) {
+    var self=this;
+    self.id=id;
+    self.Width=width;
+    self.Height=height;
+    self.Speed=speed;
+    self.Damage=damage;
+    self.Img=background;
+    self.posX=0;
+    self.posY=0;
+    self.DomElem;
+
+}
+function TEasyZomby() {
+    var self=this;
+    TZomby.apply(this,arguments);//наследуем
+    self.Create=function () {
+        var container=document.querySelector('.container');
+        var zombyEl=document.createElement("div");
+        zombyEl.classList.add('zomby');
+        zombyEl.id="z"+self.id;
+        self.posX=randomInteger(1,window.innerWidth);
+        self.posY=randomInteger(1,window.innerHeight);
+
+        zombyEl.style.cssText=" width: "+self.Width+"px;\
+        height: "+self.Width+"px;\
+        background: url("+self.Img+");\
+        position: absolute;\
+        left:"+self.posX+"px;\
+        top:"+self.posY+"px;\
+        z-index: 0;\
+        background-position: -40px -20px;\
+        transition: all 2s;";
+        container.appendChild(zombyEl);
+        self.DomElem=zombyEl;
+    }
+}
+
+
+
+
+
 var player= {
     posX:0,
     posY:0,
@@ -49,6 +89,7 @@ function look(EO) {
 
 function MovePlayer(EO) {
     EO = EO || window.event;
+    //playerEl.style.background="url(/img/move.gif)";
     if (player.posX<playerEl.offsetWidth/2){
         player.posX=playerEl.offsetWidth/2;
     }
@@ -95,7 +136,29 @@ function MovePlayer(EO) {
 
 
 }
+function MoveZobmies() {
+    for (var key in zombies){
+        if(zombies[key].posX<player.posX){
+            zombies[key].posX+=zombies[key].Speed;
+        } else if (zombies[key].posX>player.posX) {
+            zombies[key].posX-=zombies[key].Speed;
+        }
+        if(zombies[key].posY<player.posY){
+            zombies[key].posY+=zombies[key].Speed;
 
+        }else if (zombies[key].posY>player.posY){
+            zombies[key].posY-=zombies[key].Speed;
+        }
+
+
+
+            zombies[key].DomElem.style.left=zombies[key].posX +"px";
+            zombies[key].DomElem.style.top=zombies[key].posY +"px";
+
+
+    }
+
+}
 
 function DownKey(EO) {
     EO = EO || window.event;
@@ -116,16 +179,11 @@ function UpKey(EO) {
 
 function Update() {
     MovePlayer();
+    MoveZobmies();
     playerEl.style.left=player.posX+"px";
     playerEl.style.top=player.posY+"px";
     document.addEventListener("mousemove",look,false);
-    document.addEventListener("keyup",function () {
-        var arr=document.querySelectorAll(".zomby");
-        for (var i=0;i<arr.length;i++){
-            arr[i].style.left=player.posX+"px";
-            arr[i].style.top=player.posY+"px";
-        }
-    },false);
+
 
     requestAnimationFrame(Update);
 
@@ -136,87 +194,15 @@ function Update() {
 
 
 
-function moveUp(EO) {
-    EO = EO || window.event;
-    var keycode;
-    if (EO.keyCode) keycode = EO.keyCode; // IE
-    else if (EO.which) keycode = EO.which; // all browsers
-
-    if (keycode == 87) {
-        player.posY -= player.speed;
-        console.log("verh");
-    }
-
-}
-function moveDown(EO) {
-    EO = EO || window.event;
-    var keycode;
-    if (EO.keyCode) keycode = EO.keyCode; // IE
-    else if (EO.which) keycode = EO.which; // all browsers
-
-    if (keycode == 83) {
-        player.posY += player.speed;
-        console.log("niz");
-    }
-
-}
-function moveRight(EO) {
-    EO = EO || window.event;
-    var keycode;
-    if (EO.keyCode) keycode = EO.keyCode; // IE
-    else if (EO.which) keycode = EO.which; // all browsers
-
-    if (keycode == 68) {
-        player.posX += player.speed;
-        console.log("right");
-    }
-
-}
-function moveLeft(EO) {
-    EO = EO || window.event;
-    var keycode;
-    if (EO.keyCode) keycode = EO.keyCode; // IE
-    else if (EO.which) keycode = EO.which; // all browsers
-
-    if (keycode == 65) {
-        player.posX -= player.speed;
-        console.log("levo");
-    }
-
-}
-
-
-
-
 
 function CreateZomby(count) {
 
-    var container=document.querySelector('.container');
     for (var  i=0;i<count;i++){
-        var zombyEl=document.createElement("div");
-        zombyEl.classList.add('zomby');
-        var zombyPositon={
-            x:randomInteger(0,window.innerWidth),
-            y:randomInteger(0,window.innerHeight)
-        };
-       /* zombyEl.onmouseover=function (EO) {
-            var self=this;
-            self.style.left=player.posX+"px";
-            self.style.top=player.posY+"px";
-
-        }; */
-        zombyEl.style.cssText=" width: 60px;\
-        height: 70px;\
-        background: url('../img/slow4_a.png');\
-        background-position: -40px -20px;\
-        position: absolute;\
-        left:"+zombyPositon.x+"px;\
-        top:"+zombyPositon.y+"px;\
-        z-index: 0;\
-        transition: all 15s;";
-        container.appendChild(zombyEl);
+        zombies[i]= new TEasyZomby(i,60,70,1,2,"../img/slow4_a.png");
+        zombies[i].Create();
 
     }
+    console.log(zombies);
 
 }
 
@@ -241,9 +227,4 @@ function GetAngle(ms, ctr) { //узнать угол поворота
     };
     return radToDeg(angle);
 }
-function isEmpty(object) {
-    for (var key in object)
-        if (object.hasOwnProperty(key)) return true;
 
-    return false;
-}
