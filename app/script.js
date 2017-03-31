@@ -37,6 +37,45 @@ function TZomby(id,width,height,speed,damage,background) {
     self.posX=0;
     self.posY=0;
     self.DomElem;
+    self.Angle=0;
+    self.MoveZobmie=function () {
+        if(self.posX<player.posX){
+            self.posX+=self.Speed;
+
+        } else if (self.posX>player.posX) {
+            self.posX-=self.Speed;
+
+        }
+        if(self.posY<player.posY){
+            self.posY+=self.Speed;
+
+        }else if (self.posY>player.posY){
+            self.posY-=self.Speed;
+        }
+
+        if(self.posY>=player.posY && self.posX>=player.posX ){
+            self.Angle=-45;
+        }
+        if(self.posY>=player.posY && self.posX<=player.posX ) {
+            self.Angle=45;
+        }
+        if(self.posY<player.posY && self.posX<player.posX ) {
+            self.Angle=120;
+        }
+        if(self.posY<player.posY && self.posX>player.posX ) {
+            self.Angle=240;
+        }
+        return self.Angle;
+    },
+    self.RenderZombie=function () {
+        var angle =self.MoveZobmie();
+        self.DomElem.style.left=self.posX +"px";
+        self.DomElem.style.top=self.posY +"px";
+        self.DomElem.style.transform="translateZ(0) rotate("+angle+"deg)";
+    }
+
+
+
 
 }
 function TEasyZomby() {
@@ -47,7 +86,13 @@ function TEasyZomby() {
         var zombyEl=document.createElement("div");
         zombyEl.classList.add('zomby');
         zombyEl.id="z"+self.id;
-        self.posX=randomInteger(1,window.innerWidth);
+        var RandomMinX=randomInteger(1,window.innerWidth/2-200);
+        var RandomMaxX=randomInteger(window.innerWidth/2+200,window.innerWidth);
+        var RandomMinY=randomInteger(1,window.innerHeight/2-200);
+        var RandomMaxY=randomInteger(window.innerHeight/2+200,window.innerWidth);
+
+        if(randomInteger(0,1)){self.posX=RandomMinX } else {self.posX= RandomMaxX };
+        if(randomInteger(0,1)){self.posY=RandomMinY } else {self.posY= RandomMaxY };
         self.posY=randomInteger(1,window.innerHeight);
 
         zombyEl.style.cssText=" width: "+self.Width+"px;\
@@ -58,10 +103,13 @@ function TEasyZomby() {
         top:"+self.posY+"px;\
         z-index: 0;\
         background-position: -40px -20px;\
-        transition: all 2s;";
+        transition: transform 1s;"
         container.appendChild(zombyEl);
         self.DomElem=zombyEl;
-    }
+
+    };
+
+
 }
 
 
@@ -83,13 +131,13 @@ function look(EO) {
         x:EO.pageX,
         y:EO.pageY
     };
+
     var angle=GetAngle(ms,ctr).toFixed(3);
+
     playerEl.style.transform="translate(-50%,-50%) rotate(-"+angle+"deg)";
 }
 
-function MovePlayer(EO) {
-    EO = EO || window.event;
-    //playerEl.style.background="url(/img/move.gif)";
+function MovePlayer() {
     if (player.posX<playerEl.offsetWidth/2){
         player.posX=playerEl.offsetWidth/2;
     }
@@ -133,32 +181,8 @@ function MovePlayer(EO) {
         player.posX -= player.speed;
     }
 
-
-
 }
-function MoveZobmies() {
-    for (var key in zombies){
-        if(zombies[key].posX<player.posX){
-            zombies[key].posX+=zombies[key].Speed;
-        } else if (zombies[key].posX>player.posX) {
-            zombies[key].posX-=zombies[key].Speed;
-        }
-        if(zombies[key].posY<player.posY){
-            zombies[key].posY+=zombies[key].Speed;
 
-        }else if (zombies[key].posY>player.posY){
-            zombies[key].posY-=zombies[key].Speed;
-        }
-
-
-
-            zombies[key].DomElem.style.left=zombies[key].posX +"px";
-            zombies[key].DomElem.style.top=zombies[key].posY +"px";
-
-
-    }
-
-}
 
 function DownKey(EO) {
     EO = EO || window.event;
@@ -179,12 +203,12 @@ function UpKey(EO) {
 
 function Update() {
     MovePlayer();
-    MoveZobmies();
+    for (var key in zombies){
+        zombies[key].RenderZombie();
+    }
     playerEl.style.left=player.posX+"px";
     playerEl.style.top=player.posY+"px";
     document.addEventListener("mousemove",look,false);
-
-
     requestAnimationFrame(Update);
 
 }
@@ -192,17 +216,12 @@ function Update() {
 
 
 
-
-
-
 function CreateZomby(count) {
 
     for (var  i=0;i<count;i++){
-        zombies[i]= new TEasyZomby(i,60,70,1,2,"../img/slow4_a.png");
+        zombies[i]= new TEasyZomby(i,60,70,0.3,2,"../img/slow4_a.png");
         zombies[i].Create();
-
     }
-    console.log(zombies);
 
 }
 
@@ -222,9 +241,10 @@ function GetAngle(ms, ctr) { //узнать угол поворота
         angle = 2 * Math.PI - angle;
     }
 
-    var  radToDeg = function(r) { //пересчет в радианы
-        return (r * (180 / Math.PI));
-    };
+
     return radToDeg(angle);
 }
+var  radToDeg = function(r) { //пересчет в радианы
+    return (r * (180 / Math.PI));
+};
 
