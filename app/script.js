@@ -85,10 +85,11 @@ var player= {
         EO=EO||window.event;
         (magazine.current>0) ? magazine.current=magazine.current-1:"";
         magazine.show();
-        var bullet = new TBullet();
-        bullet.Create(1,0,0);
-        setInterval(bullet.Shot);
-
+        if (magazine.current){
+            var bullet = new TBullet();
+            bullet.Create(1,0,0);
+            setInterval(bullet.Shot);
+        }
 
     },
     Look:function(EO) {

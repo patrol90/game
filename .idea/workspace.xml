@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="077bc0dc-af42-4774-b23b-f1c232e06e68" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/script.js" afterPath="$PROJECT_DIR$/app/script.js" />
     </list>
     <ignored path="game.iws" />
@@ -49,18 +48,17 @@
       <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="289" column="20" selection-start-line="289" selection-start-column="20" selection-end-line="289" selection-end-column="20" />
+            <state relative-caret-position="461">
+              <caret line="89" column="33" selection-start-line="89" selection-start-column="33" selection-end-line="89" selection-end-column="33" />
               <folding>
                 <element signature="e#0#54#0" expanded="false" />
                 <element signature="e#614#2179#0" expanded="false" />
-                <element signature="n#!!block;n#TZomby#0" expanded="false" />
                 <element signature="n#!!block;n#DownKey#0" expanded="false" />
                 <element signature="n#!!block;n#UpKey#0" expanded="false" />
                 <element signature="n#!!block;n#CreateZomby#0" expanded="false" />
                 <element signature="n#!!block;n#randomInteger#0" expanded="false" />
                 <element signature="n#!!block;n#GetAngle#0" expanded="false" />
-                <element signature="e#9759#9817#0" expanded="false" />
+                <element signature="e#9811#9869#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -252,12 +250,12 @@
       <workItem from="1490708237996" duration="11000" />
       <workItem from="1490772157683" duration="23167000" />
       <workItem from="1490946227194" duration="22716000" />
-      <workItem from="1491824710671" duration="6959000" />
+      <workItem from="1491824710671" duration="7442000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66144000" />
+    <option name="totallyTimeSpent" value="66627000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1053" extended-state="6" />
@@ -303,7 +301,7 @@
           <properties />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -331,13 +329,12 @@
           <folding>
             <element signature="e#0#54#0" expanded="false" />
             <element signature="e#614#2179#0" expanded="false" />
-            <element signature="n#!!block;n#TZomby#0" expanded="false" />
             <element signature="n#!!block;n#DownKey#0" expanded="false" />
             <element signature="n#!!block;n#UpKey#0" expanded="false" />
             <element signature="n#!!block;n#CreateZomby#0" expanded="false" />
             <element signature="n#!!block;n#randomInteger#0" expanded="false" />
             <element signature="n#!!block;n#GetAngle#0" expanded="false" />
-            <element signature="e#9759#9817#0" expanded="false" />
+            <element signature="e#9811#9869#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -373,13 +370,12 @@
           <folding>
             <element signature="e#0#54#0" expanded="false" />
             <element signature="e#614#2179#0" expanded="false" />
-            <element signature="n#!!block;n#TZomby#0" expanded="false" />
             <element signature="n#!!block;n#DownKey#0" expanded="false" />
             <element signature="n#!!block;n#UpKey#0" expanded="false" />
             <element signature="n#!!block;n#CreateZomby#0" expanded="false" />
             <element signature="n#!!block;n#randomInteger#0" expanded="false" />
             <element signature="n#!!block;n#GetAngle#0" expanded="false" />
-            <element signature="e#9759#9817#0" expanded="false" />
+            <element signature="e#9811#9869#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -407,13 +403,12 @@
           <folding>
             <element signature="e#0#54#0" expanded="false" />
             <element signature="e#614#2179#0" expanded="false" />
-            <element signature="n#!!block;n#TZomby#0" expanded="false" />
             <element signature="n#!!block;n#DownKey#0" expanded="false" />
             <element signature="n#!!block;n#UpKey#0" expanded="false" />
             <element signature="n#!!block;n#CreateZomby#0" expanded="false" />
             <element signature="n#!!block;n#randomInteger#0" expanded="false" />
             <element signature="n#!!block;n#GetAngle#0" expanded="false" />
-            <element signature="e#9759#9817#0" expanded="false" />
+            <element signature="e#9811#9869#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -441,13 +436,12 @@
           <folding>
             <element signature="e#0#54#0" expanded="false" />
             <element signature="e#614#2179#0" expanded="false" />
-            <element signature="n#!!block;n#TZomby#0" expanded="false" />
             <element signature="n#!!block;n#DownKey#0" expanded="false" />
             <element signature="n#!!block;n#UpKey#0" expanded="false" />
             <element signature="n#!!block;n#CreateZomby#0" expanded="false" />
             <element signature="n#!!block;n#randomInteger#0" expanded="false" />
             <element signature="n#!!block;n#GetAngle#0" expanded="false" />
-            <element signature="e#9759#9817#0" expanded="false" />
+            <element signature="e#9811#9869#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -594,18 +588,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="289" column="20" selection-start-line="289" selection-start-column="20" selection-end-line="289" selection-end-column="20" />
+        <state relative-caret-position="461">
+          <caret line="89" column="33" selection-start-line="89" selection-start-column="33" selection-end-line="89" selection-end-column="33" />
           <folding>
             <element signature="e#0#54#0" expanded="false" />
             <element signature="e#614#2179#0" expanded="false" />
-            <element signature="n#!!block;n#TZomby#0" expanded="false" />
             <element signature="n#!!block;n#DownKey#0" expanded="false" />
             <element signature="n#!!block;n#UpKey#0" expanded="false" />
             <element signature="n#!!block;n#CreateZomby#0" expanded="false" />
             <element signature="n#!!block;n#randomInteger#0" expanded="false" />
             <element signature="n#!!block;n#GetAngle#0" expanded="false" />
-            <element signature="e#9759#9817#0" expanded="false" />
+            <element signature="e#9811#9869#0" expanded="false" />
           </folding>
         </state>
       </provider>
