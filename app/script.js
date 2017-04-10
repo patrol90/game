@@ -7,6 +7,16 @@
 document.addEventListener("DOMContentLoaded", ready);
 var playerEl=document.getElementById('player');
 var container=document.querySelector('.container');
+function CreateAim() {
+
+    var aim=document.createElement('div');
+    aim.id="aim";
+    aim.style.cssText="width:1000px;height:2px;position:absolute;background:rgba(255, 255, 0, 0.24);z-index:0;";
+    aim.style.top=playerEl.offsetHeight/1.33+"px";
+    aim.style.left=playerEl.offsetWidth+"px";
+    playerEl.appendChild(aim);
+}
+CreateAim();
 
 var pressed={};
 
@@ -23,8 +33,8 @@ var magazine={
     delDomBullet:[],
     reload:function () {
         for (this.current; this.current < this.size; this.current++) {
-            this.stock[this.current] = new TBullet();
-            this.stock[this.current].Create(this.current,player.posX,player.posY);
+            //this.stock[this.current] = new TBullet();
+            //this.stock[this.current].Create(this.current,player.posX,player.posY);
         }
     },
     show:function () {
@@ -67,16 +77,19 @@ var player= {
     posX:0,
     posY:0,
     speed:1,
+    angle:0,
     health:100,
+    aim:document.querySelector("#aim"),
+
     Fire: function (EO) {
         EO=EO||window.event;
         (magazine.current>0) ? magazine.current=magazine.current-1:"";
         magazine.show();
-        var bullet=magazine.stock[magazine.current];
-        bullet.PosX =EO.pageX;
-        bullet.PosY=EO.pageY;
-        magazine.stock[magazine.current].Element.style.left=bullet.PosX+"px";
-        magazine.stock[magazine.current].Element.style.top=bullet.PosY+"px";
+        var bullet = new TBullet();
+        bullet.Create(1,0,0);
+        setInterval(bullet.Shot);
+
+
     },
     Look:function(EO) {
         EO=EO||window.event;
@@ -87,9 +100,10 @@ var player= {
         };
 
         var angle=GetAngle(ms,ctr).toFixed(3);
-
+        player.angle=angle;
         playerEl.style.transform="translate(-50%,-50%) rotate(-"+angle+"deg)";
     },
+
     MovePlayer:function () {
         if (player.posX<playerEl.offsetWidth/2){
             player.posX=playerEl.offsetWidth/2;
@@ -260,21 +274,21 @@ function  TBullet() {
             left=self.PosX;
             top=self.PosY;
         }
-        var bullet=document.createElement('div');
-        bullet.style.width=self.width + "px";
-        bullet.style.height=self.height + "px";
-        bullet.style.background=self.color;
+        var bullet=document.createElement('span');
+        bullet.style.height="2px";
+        bullet.style.width="8px";
+        bullet.style.background="red";
         bullet.style.position="absolute";
-        bullet.style.left=left+"px";
-        bullet.style.top=top+"px";
-        bullet.style.borderRadius=self.height/2+"px";
         bullet.id='bul'+id;
         self.Element=bullet;
-        container.appendChild(bullet);
+
+        player.aim.appendChild(bullet);
 
     };
     self.Shot=function () {
-
+        console.log('ee');
+        self.PosX+=5;
+        self.Element.style.left=self.PosX+"px";
 
     }
 
@@ -312,6 +326,8 @@ function Update() {
     }
     playerEl.style.left=player.posX+"px";
     playerEl.style.top=player.posY+"px";
+
+
     requestAnimationFrame(Update);
 }
 
@@ -321,7 +337,7 @@ function Update() {
 function CreateZomby(count) {
 
     for (var  i=0;i<count;i++){
-        zombies[i]= new TEasyZomby(i,60,70,0.3,2,"../img/slow4_a.png");
+        zombies[i]= new TEasyZomby(i,60,70,0.3,2,"img/slow4_a.png");
         zombies[i].Create();
     }
 
