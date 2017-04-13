@@ -12,7 +12,7 @@ function CreateAim() {
     var aim=document.createElement('div');
     aim.id="aim";
     aim.style.cssText="width:1000px;height:2px;position:absolute;background:rgba(255, 255, 0, 0.24);z-index:0;";
-    aim.style.top=playerEl.offsetHeight/1.33+"px";
+    aim.style.top=playerEl.offsetHeight/2+"px";
     aim.style.left=playerEl.offsetWidth+"px";
     playerEl.appendChild(aim);
 }
@@ -88,7 +88,7 @@ var player= {
         if (magazine.current){
             var bullet = new TBullet();
             bullet.Create(1,0,0);
-            setInterval(bullet.Shot);
+            bullet.Shot();
         }
 
     },
@@ -275,6 +275,7 @@ function  TBullet() {
             left=self.PosX;
             top=self.PosY;
         }
+
         var bullet=document.createElement('span');
         bullet.style.height="2px";
         bullet.style.width="8px";
@@ -282,22 +283,49 @@ function  TBullet() {
         bullet.style.position="absolute";
         bullet.id='bul'+id;
         self.Element=bullet;
+        var clonedNode = document.getElementById("aim").cloneNode(false);
+        clonedNode.style.transform="translate(-50%,-50%) rotate(-"+player.angle+"deg)";
+        clonedNode.style.background="none";
+        clonedNode.style.left=player.posX+"px";
+        clonedNode.style.top=player.posY+"px";
+        container.appendChild(clonedNode);
 
-        player.aim.appendChild(bullet);
+        self.PosX=clonedNode.offsetWidth/2;
+        clonedNode.appendChild(bullet);
 
     };
     self.Shot=function () {
-        console.log('ee');
-        self.PosX+=5;
-        self.Element.style.left=self.PosX+"px";
+        if(self.Element){
+            if(self.PosX<1500){
+                self.PosX+=10;
+                self.Element.style.left=self.PosX+"px";
+            }
+            if(self.Element){
+                if (self.PosX>=1500){
+                    document.querySelector(".container").removeChild(self.Element.parentNode);
+                }
+            }
+           // console.log(GetElementPos(self.Element));
+        }
 
-    }
+        requestAnimationFrame(self.Shot);
+
+    };
+
 
 }
 
 
 
 
+var GetElementPos = function (EL) {
+
+    var bbox=EL.getBoundingClientRect();
+    return {
+        left: Math.floor(bbox.left+window.pageXOffset),
+        top: Math.floor(bbox.top+window.pageYOffset)
+    };
+}
 
 
 

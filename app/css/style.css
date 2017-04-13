@@ -18,13 +18,14 @@ h1 {
   width: 10vw;
   height: 15vh;
   background: url("/img/player.png");
-  background-size: cover;
-  background-position: center;
+  background-size: 80%;
+  background-position: center -20px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1; }
+  z-index: 1;
+  background-repeat: no-repeat; }
 
 #cursor {
   content: '';
