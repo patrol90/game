@@ -19,7 +19,7 @@ function CreateAim() {
 CreateAim();
 
 var pressed={};
-
+var path={};
 var zombies={};
 
 var magazine={
@@ -170,9 +170,11 @@ function ready() {
     },false);
     player.posX=playerEl.offsetLeft;
     player.posY=playerEl.offsetTop;
-    CreateZomby(15);
+    CreateZomby(5);
     Update();
     magazine.reloading();
+
+
 }
 
 function TZomby(id,width,height,speed,damage,background) {
@@ -185,6 +187,8 @@ function TZomby(id,width,height,speed,damage,background) {
     self.Img=background;
     self.posX=0;
     self.posY=0;
+    self.Healthy=100;
+    self.HealthyDom='';
     self.DomElem;
     self.Angle=0;
     self.MoveZobmie=function () {
@@ -221,7 +225,28 @@ function TZomby(id,width,height,speed,damage,background) {
         self.DomElem.style.left=self.posX +"px";
         self.DomElem.style.top=self.posY +"px";
         self.DomElem.style.transform="translateZ(0) rotate("+angle+"deg)";
+        self.HealthyDom.style.width=self.Healthy+"%";
+        if(self.Healthy<100&&self.Healthy>0){
+            self.HealthyDom.style.display="block";
+        }
+        if(self.Healthy<=0){
+            self.DomElem.style.display="none";
+            self.HealthyDom.style.display="none";
+            delete  zombies[self.id];
+
+            if(!checkObj(zombies)) {
+                setTimeout(function(){alert("Вы победили!")},1000);
+            }
+
+        }
+    };
+    self.Damage=function(dmg){
+        if(self.Healthy>0){
+            self.Healthy -= dmg;
+        }
+
     }
+
 
 
 
@@ -242,18 +267,21 @@ function TEasyZomby() {
         if(randomInteger(0,1)){self.posX=RandomMinX } else {self.posX= RandomMaxX };
         if(randomInteger(0,1)){self.posY=RandomMinY } else {self.posY= RandomMaxY };
         self.posY=randomInteger(1,window.innerHeight);
-
         zombyEl.style.cssText=" width: "+self.Width+"px;\
         height: "+self.Width+"px;\
         background: url("+self.Img+");\
         position: absolute;\
         left:"+self.posX+"px;\
         top:"+self.posY+"px;\
-        z-index: 0;\
-        background-position: -40px -20px;\
-        transition: transform 1s;"
+        z-index: 110;\
+        background-position: -40px -25px;\
+        transition: transform 1s;";
         container.appendChild(zombyEl);
         self.DomElem=zombyEl;
+        var HealthBar=document.createElement('div');
+        HealthBar.style.cssText="width:"+self.Healthy+"%;height:3px;background:green;position:absolute;bottom:0px;display:none;";
+        self.HealthyDom=HealthBar;
+        self.DomElem.appendChild(HealthBar);
 
     };
 }
@@ -267,9 +295,8 @@ function  TBullet() {
     self.color="red";
     self.id=0;
     self.Element='';
-    self.Fire=function () {
-        console.log(self.id);
-    };
+    self.coor={};
+
     self.Create=function (id,left,top) {
         if(!left && !top){
             left=self.PosX;
@@ -293,16 +320,19 @@ function  TBullet() {
         self.PosX=clonedNode.offsetWidth/2;
         clonedNode.appendChild(bullet);
 
+        setInterval(self.Check,100);
+
+
     };
     self.Shot=function () {
         if(self.Element){
-            if(self.PosX<1500){
+            if(self.PosX<1500 && self.PosX>0){
                 self.PosX+=10;
                 self.Element.style.left=self.PosX+"px";
             }
             if(self.Element){
-                if (self.PosX>=1500){
-                    document.querySelector(".container").removeChild(self.Element.parentNode);
+                if (self.PosX>=1500 || self.PosX==0){
+                    //document.querySelector(".container").removeChild(self.Element.parentNode);
                 }
             }
            // console.log(GetElementPos(self.Element));
@@ -312,6 +342,17 @@ function  TBullet() {
 
     };
 
+    self.Check=function () {
+        if(self.Element){
+            self.coor=GetElementPos(self.Element);
+            for(var key in zombies){
+                if(((zombies[key].posX-self.coor.left)<40)&&((zombies[key].posX-self.coor.left)>0)&&((self.coor.top -zombies[key].posY)>0)&&((self.coor.top -zombies[key].posY)<100) ) {
+                    zombies[key].Damage(20);
+
+                }
+            }
+        }
+    }
 
 }
 
@@ -394,4 +435,11 @@ function GetAngle(ms, ctr) { //узнать угол поворота
 var  radToDeg = function(r) { //пересчет в радианы
     return (r * (180 / Math.PI));
 };
+function checkObj(object){
+    if(!Object.keys(object).length) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
