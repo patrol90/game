@@ -11,7 +11,7 @@ function CreateAim() {
 
     var aim=document.createElement('div');
     aim.id="aim";
-    aim.style.cssText="width:1000px;height:2px;position:absolute;background:rgba(255, 255, 0, 0.24);z-index:0;";
+    aim.style.cssText="width:1000px;height:2px;position:absolute;background:rgba(255, 255, 0, 0.14);z-index:0;";
     aim.style.top=playerEl.offsetHeight/2+"px";
     aim.style.left=playerEl.offsetWidth+"px";
     playerEl.appendChild(aim);
@@ -230,7 +230,7 @@ function TZomby(id,width,height,speed,damage,background) {
             self.HealthyDom.style.display="block";
         }
         if(self.Healthy<=0){
-            self.DomElem.style.display="none";
+            self.DomElem.style.background="url(img/slow4_a.png) -20px -785px";
             self.HealthyDom.style.display="none";
             delete  zombies[self.id];
 
@@ -279,7 +279,7 @@ function TEasyZomby() {
         container.appendChild(zombyEl);
         self.DomElem=zombyEl;
         var HealthBar=document.createElement('div');
-        HealthBar.style.cssText="width:"+self.Healthy+"%;height:3px;background:green;position:absolute;bottom:0px;display:none;";
+        HealthBar.style.cssText="width:"+self.Healthy+"%;height:3px;background:green;position:absolute;bottom:0px;display:none;opacity:0.5";
         self.HealthyDom=HealthBar;
         self.DomElem.appendChild(HealthBar);
 
@@ -332,7 +332,7 @@ function  TBullet() {
             }
             if(self.Element){
                 if (self.PosX>=1500 || self.PosX==0){
-                    //document.querySelector(".container").removeChild(self.Element.parentNode);
+                    document.querySelector(".container").removeChild(self.Element.parentNode);
                 }
             }
            // console.log(GetElementPos(self.Element));
@@ -346,10 +346,12 @@ function  TBullet() {
         if(self.Element){
             self.coor=GetElementPos(self.Element);
             for(var key in zombies){
-                if(((zombies[key].posX-self.coor.left)<40)&&((zombies[key].posX-self.coor.left)>0)&&((self.coor.top -zombies[key].posY)>0)&&((self.coor.top -zombies[key].posY)<100) ) {
+               if(((zombies[key].posX-self.coor.left)<zombies[key].Width)&&((zombies[key].posX-self.coor.left)>-zombies[key].Width)&&((self.coor.top -zombies[key].posY)>=0)&&((self.coor.top -zombies[key].posY)<zombies[key].Height) ) {
                     zombies[key].Damage(20);
 
                 }
+
+
             }
         }
     }
@@ -392,7 +394,7 @@ function UpKey(EO) {
 function Update() {
     player.MovePlayer();
     for (var key in zombies){
-        zombies[key].RenderZombie();
+       zombies[key].RenderZombie();
     }
     playerEl.style.left=player.posX+"px";
     playerEl.style.top=player.posY+"px";
