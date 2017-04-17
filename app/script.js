@@ -7,7 +7,14 @@
 document.addEventListener("DOMContentLoaded", ready);
 var playerEl=document.getElementById('player');
 var container=document.querySelector('.container');
+var playerHealth=document.createElement('div');
+
 function CreateAim() {
+    var playerHealthContainer=document.createElement('div');
+    playerHealthContainer.style.cssText="width:200px;height:20px;border:2px solid white;border-radius:10px;overflow:hidden;position:absolute;top:20px;left:20px;";
+    playerHealth.style.cssText="width:100%;height:20px;background:#f44336;"
+    playerHealthContainer.appendChild(playerHealth);
+    container.appendChild(playerHealthContainer);
 
     var aim=document.createElement('div');
     aim.id="aim";
@@ -15,13 +22,21 @@ function CreateAim() {
     aim.style.top=playerEl.offsetHeight/2+"px";
     aim.style.left=playerEl.offsetWidth+"px";
     playerEl.appendChild(aim);
+
 }
 CreateAim();
 
 var pressed={};
 var path={};
 var zombies={};
+var game={
+    status:1,
+    playerName:"",
+    level:1,
 
+
+
+};
 var magazine={
     size:10,
     current:0,
@@ -34,7 +49,6 @@ var magazine={
     reload:function () {
         for (this.current; this.current < this.size; this.current++) {
             //this.stock[this.current] = new TBullet();
-            //this.stock[this.current].Create(this.current,player.posX,player.posY);
         }
     },
     show:function () {
@@ -220,6 +234,15 @@ function TZomby(id,width,height,speed,damage,background) {
         }
         return self.Angle;
     },
+    self.Atack=function () {
+      if(((self.posX-player.posX)<0)&&((self.posX-player.posX)>-60)&&((self.posY-player.posY)<=0)&&((self.posY-player.posY)>-60)){
+            player.health-=self.Damage;
+      }
+        if (player.health==0){
+            game.status=0;
+            alert("Игра окончена");
+        }
+    },
     self.RenderZombie=function () {
         var angle =self.MoveZobmie();
         self.DomElem.style.left=self.posX +"px";
@@ -230,7 +253,8 @@ function TZomby(id,width,height,speed,damage,background) {
             self.HealthyDom.style.display="block";
         }
         if(self.Healthy<=0){
-            self.DomElem.style.background="url(img/slow4_a.png) -20px -785px";
+            self.DomElem.style.background="url(img/slow4_a.png) -20px -785px,url(img/blood.png)center center";
+            self.DomElem.style.zIndex='9';
             self.HealthyDom.style.display="none";
             delete  zombies[self.id];
 
@@ -239,8 +263,10 @@ function TZomby(id,width,height,speed,damage,background) {
             }
 
         }
+        self.Atack();
+
     };
-    self.Damage=function(dmg){
+    self.Damaged=function(dmg){
         if(self.Healthy>0){
             self.Healthy -= dmg;
         }
@@ -273,7 +299,7 @@ function TEasyZomby() {
         position: absolute;\
         left:"+self.posX+"px;\
         top:"+self.posY+"px;\
-        z-index: 110;\
+        z-index: 10;\
         background-position: -40px -25px;\
         transition: transform 1s;";
         container.appendChild(zombyEl);
@@ -332,7 +358,11 @@ function  TBullet() {
             }
             if(self.Element){
                 if (self.PosX>=1500 || self.PosX==0){
+                    try {
                     document.querySelector(".container").removeChild(self.Element.parentNode);
+                    } catch (err){
+
+                    }
                 }
             }
            // console.log(GetElementPos(self.Element));
@@ -347,7 +377,7 @@ function  TBullet() {
             self.coor=GetElementPos(self.Element);
             for(var key in zombies){
                if(((zombies[key].posX-self.coor.left)<zombies[key].Width)&&((zombies[key].posX-self.coor.left)>-zombies[key].Width)&&((self.coor.top -zombies[key].posY)>=0)&&((self.coor.top -zombies[key].posY)<zombies[key].Height) ) {
-                    zombies[key].Damage(20);
+                    zombies[key].Damaged(20);
 
                 }
 
@@ -392,15 +422,17 @@ function UpKey(EO) {
 
 
 function Update() {
-    player.MovePlayer();
-    for (var key in zombies){
-       zombies[key].RenderZombie();
+    if(game.status){
+        player.MovePlayer();
+        for (var key in zombies){
+           zombies[key].RenderZombie();
+        }
+        playerEl.style.left=player.posX+"px";
+        playerEl.style.top=player.posY+"px";
+        playerHealth.style.width=player.health+"%";
+
+        requestAnimationFrame(Update);
     }
-    playerEl.style.left=player.posX+"px";
-    playerEl.style.top=player.posY+"px";
-
-
-    requestAnimationFrame(Update);
 }
 
 
@@ -409,7 +441,7 @@ function Update() {
 function CreateZomby(count) {
 
     for (var  i=0;i<count;i++){
-        zombies[i]= new TEasyZomby(i,60,70,0.3,2,"img/slow4_a.png");
+        zombies[i]= new TEasyZomby(i,60,70,0.5,2,"img/slow4_a.png");
         zombies[i].Create();
     }
 
