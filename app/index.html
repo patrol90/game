@@ -2,23 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My game</title>
-  <link rel="stylesheet" href="css/style.css">
-    <style>
-        .container {
-            width: 100vw;
-            height: 100vh;
-            background: url("img/fon2.jpg"); }
+  <title>Title</title>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden; }
+    .container {
+      width: 100vw;
+      height: 100vh;
+      background: url("img/main-background.jpg");
+      background-repeat: no-repeat;
+      display: flex  ;
+      justify-content: center;
+      align-items: center;
+    }
+    .block {
+      background: rgba(139, 139, 139, 0.65);
+      border-radius: 40px;
+      width:40vw;
+      height: 60vh;
+      -webkit-box-shadow: 5px 5px 52px 0px rgba(0,0,0,0.75);
+      -moz-box-shadow: 5px 5px 52px 0px rgba(0,0,0,0.75);
+      box-shadow: 5px 5px 52px 0px rgba(0,0,0,0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-    </style>
+    }
+    .block li {
+      text-align: center;
+      list-style: none;
+
+    }
+    .block li a {
+      font-family: Arial;
+      font-size: 40px;
+      color: black;
+      line-height: 1.3em;
+      text-decoration: none;
+    }
+    .block li a:hover {
+      color:white;
+    }
+    .block ul {
+      -webkit-padding-start: 0px;
+    }
+  </style>
 </head>
 <body>
-
 <div class="container">
-    <div id="player"></div>
-
+  <div class="block">
+    <ul>
+      <li><a href="#home">Домой</a></li>
+      <li><a href="#game">Начать игру</a></li>
+      <li><a href="#record">Рекорды</a></li>
+    </ul>
+    
+  </div>
 </div>
-<script src="script.js"></script>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/spa.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/TBullet.js"></script>
+<script src="js/TZomby.js"></script>
+<script src="js/TEasyZomby.js"></script>
+<script src="js/Oplayer.js"></script>
+<script src="js/script.js"></script>
 
 </body>
 </html>
