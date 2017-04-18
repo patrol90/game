@@ -126,6 +126,8 @@ var magazine={
         MagazineBlock.style.background=this.border;
         MagazineBlock.style.position="absolute";
         MagazineBlock.style.right="0px";
+        MagazineBlock.style.top="0px";
+
         MagazineBlock.style.padding="5px";
         for (var i=0;i<this.current;i++){
             var MagazineElement = document.createElement("div");

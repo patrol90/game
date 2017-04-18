@@ -2,6 +2,15 @@
  * Created by dmitry.sobolevsky on 18.04.2017.
  */
 //helpful
+var playerEl=document.getElementById('player');
+
+
+var ctr = { //player position
+    x:playerEl.offsetLeft,
+    y:playerEl.offsetTop,
+};
+
+
 function randomInteger(min, max) {
     var rand = min - 0.5 + Math.random() * (max - min + 1)
     rand = Math.round(rand);

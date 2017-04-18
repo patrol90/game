@@ -71,6 +71,7 @@ function TZomby(id,width,height,speed,damage) {
 
                 if(!checkObj(zombies)) {
                     game.status=0;
+                    game.Safe();
                     setTimeout(function(){alert("Вы победили!")},1000);
                 }
 

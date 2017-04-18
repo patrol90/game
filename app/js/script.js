@@ -4,8 +4,6 @@
 "use strict";
 
 
-document.addEventListener("DOMContentLoaded", ready);
-var playerEl=document.getElementById('player');
 var container=document.querySelector('.container');
 var playerHealth=document.createElement('div');
 
@@ -18,15 +16,26 @@ var zombies={};
 var game={
     status:1,
     playerName:"",
-    level:"l1",
+    level:1,
+    Safe:function(){
+        game.level++;
+
+        var stat = { name: game.playerName , level:game.level};
+        var sObj = JSON.stringify(stat);
+        localStorage.setItem("progress", sObj);
+        setTimeout(game.NextRound,1000);
+    },
+    NextRound:function(){
+        game.status=1;
+        CreateZomby(game.level*5);
+        Update();
+        magazine.reloading();
+    }
     
 };
 
 
-var ctr = { //player position
-    x:playerEl.offsetLeft,
-    y:playerEl.offsetTop,
-};
+
 
 
 
@@ -70,7 +79,8 @@ function Update() {
 }
 
 
-function CreateZomby(count) {
+function CreateZomby(count,health) {
+
 
     for (var  i=0;i<count;i++){
         zombies[i]= new TEasyZomby(i,60,70,0.5,2);
@@ -79,5 +89,5 @@ function CreateZomby(count) {
 
 }
 
-
+ready();
 

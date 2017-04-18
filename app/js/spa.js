@@ -4,26 +4,53 @@
 
 var container=document.querySelector(".container");
 window.onhashchange=SwitchToStateFromURLHash;
+SwitchToStateFromURLHash();
 function SwitchToStateFromURLHash() {
     var URLHash=window.location.hash;
     URLHash=URLHash.substr(1);
+    if(URLHash==''){
+        URLHash="home";
+    }
+
    switch (URLHash) {
         case "game":
 
             container.innerHTML='<div id="player"></div>';
-            container.style.cssText="width: 100vw;\
-            height: 100vh;\
-            background: url(\"img/fon2.jpg\");";
+            $("head").append($("<link rel='stylesheet' href='css/game.css' type='text/css'  />"));
+            LoadScriptAsync("js/custom.js");
+            LoadScriptAsync("js/TBullet.js");
+            LoadScriptAsync("js/TZomby.js");
+            LoadScriptAsync("js/TEasyZomby.js");
+            LoadScriptAsync("js/Oplayer.js");
+            LoadScriptAsync("js/script.js");
+
+
+
             break;
+
         case "home":
-            $.ajax({
-                url: "index.html",
-                cache: false,
-                success: function(html){
-                    document.querySelector('body').innerHTML=html;
-                }
-            });
+            container.innerHTML=' \
+            <div class="block">\
+                <ul>\
+                <li><a href="#home">Домой</a></li>\
+                <li><a href="#game">Начать игру</a></li>\
+                <li><a href="#record">Рекорды</a></li>\
+                </ul>\
+            </div>';
+
+            $("head").append($("<link rel='stylesheet' href='css/main.css' type='text/css'  />"));
             break;
     }
 }
+
+
+
+function LoadScriptAsync(url)
+{
+    var s=document.createElement("script");
+    s.src=url;
+    document.getElementsByTagName("head")[0].appendChild(s);
+}
+
+
 

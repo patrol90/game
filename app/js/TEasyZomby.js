@@ -22,7 +22,7 @@ function TEasyZomby() {
         position: absolute;\
         left:"+self.posX+"px;\
         top:"+self.posY+"px;\
-        background:url('../img/easyAnimation.gif');\
+        background:url('img/easyAnimation.gif');\
         background-position: -40px -25px;\
         z-index: 10;\
         transition: transform 1s;";
