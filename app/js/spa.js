@@ -18,10 +18,11 @@ function SwitchToStateFromURLHash() {
             container.innerHTML='<div id="player"></div>';
             $("head").append($("<link rel='stylesheet' href='css/game.css' type='text/css'  />"));
             LoadScriptAsync("js/custom.js");
+            LoadScriptAsync("js/Game.js");
             LoadScriptAsync("js/TBullet.js");
             LoadScriptAsync("js/TZomby.js");
             LoadScriptAsync("js/TEasyZomby.js");
-            LoadScriptAsync("js/Oplayer.js");
+            LoadScriptAsync("js/Player.js");
             LoadScriptAsync("js/script.js");
 
 

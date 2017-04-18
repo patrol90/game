@@ -13,26 +13,7 @@ var pressed={};
 var path={};
 var zombies={};
 
-var game={
-    status:1,
-    playerName:"",
-    level:1,
-    Safe:function(){
-        game.level++;
 
-        var stat = { name: game.playerName , level:game.level};
-        var sObj = JSON.stringify(stat);
-        localStorage.setItem("progress", sObj);
-        setTimeout(game.NextRound,1000);
-    },
-    NextRound:function(){
-        game.status=1;
-        CreateZomby(game.level*5);
-        Update();
-        magazine.reloading();
-    }
-    
-};
 
 
 
@@ -84,7 +65,7 @@ function CreateZomby(count,health) {
 
     for (var  i=0;i<count;i++){
         zombies[i]= new TEasyZomby(i,60,70,0.5,2);
-        zombies[i].Create();
+        zombies[i].Create(health);
     }
 
 }

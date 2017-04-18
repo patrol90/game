@@ -4,7 +4,9 @@
 function TEasyZomby() {
     var self=this;
     TZomby.apply(this,arguments);//наследуем
-    self.Create=function () {
+    self.Create=function (health) {
+        if(!health) health=100;
+        self.Healthy=health;
         var zombyEl=document.createElement("div");
         zombyEl.classList.add('zomby');
         zombyEl.classList.add('easy');

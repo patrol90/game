@@ -105,7 +105,7 @@ var magazine={
     size:10,
     current:0,
     width:100,
-    height:50,
+    height:20,
     border:"black",
     fill:"yellow",
     stock:{},
@@ -125,8 +125,8 @@ var magazine={
         MagazineBlock.style.height=this.height+"px";
         MagazineBlock.style.background=this.border;
         MagazineBlock.style.position="absolute";
-        MagazineBlock.style.right="0px";
-        MagazineBlock.style.top="0px";
+        MagazineBlock.style.right="20px";
+        MagazineBlock.style.top="20px";
 
         MagazineBlock.style.padding="5px";
         for (var i=0;i<this.current;i++){
