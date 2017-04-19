@@ -8,7 +8,7 @@ html, body {
 .container {
   width: 100vw;
   height: 100vh;
-  background: url("../img/fon2.jpg"); }
+  background: url("/img/fon2.jpg"); }
 
 h1 {
   padding: 0;
@@ -17,7 +17,7 @@ h1 {
 #player {
   width: 10vw;
   height: 15vh;
-  background: url("../img/player.png");
+  background: url("/img/player.png");
   background-size: 80%;
   background-position: center -20px;
   position: absolute;
@@ -39,48 +39,3 @@ h1 {
   position: absolute;
   z-index: 0;
   opacity: 0.5; }
-
-.zomby.easy{
-
-
-}
-
-@keyframes GameStart {
-  0%{
-    font-size: 5vw;
-  }
-  10%{
-    font-size: 6vw;
-  }
-  20%{
-    font-size: 7vw;
-  }
-  30%{
-    font-size: 6vw;
-  }
-  40%{
-    font-size: 5vw;
-  }
-  50%{
-    font-size: 4vw;
-  }
-  60%{
-    font-size: 3vw;
-  }
-  70%{
-    font-size: 2vw;
-  }
-  80%{
-    font-size: 1vw;
-  }
-  90%{
-    font-size: 0vw;
-  }
-  100%{
-    font-size: 0vw;
-  }
-
-
-}
-
-

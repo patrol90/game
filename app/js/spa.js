@@ -33,7 +33,6 @@ function SwitchToStateFromURLHash() {
             container.innerHTML=' \
             <div class="block">\
                 <ul>\
-                <li><a href="#home">Домой</a></li>\
                 <li><a href="#game">Начать игру</a></li>\
                 <li><a href="#record">Рекорды</a></li>\
                 </ul>\

@@ -35,12 +35,16 @@ function ready() {
         }
 
     },false);
+    game.Start();
     player.CreateInterface();
     player.posX=playerEl.offsetLeft;
     player.posY=playerEl.offsetTop;
     CreateZomby(5);
     Update();
     magazine.reloading();
+    if(game.level){
+        game.GameStartMessage("К бою");
+    }
 
 }
 
@@ -70,5 +74,5 @@ function CreateZomby(count,health) {
 
 }
 
-ready();
+setTimeout(ready,1000);
 

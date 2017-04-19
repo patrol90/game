@@ -50,7 +50,6 @@ function TZomby(id,width,height,speed,damage) {
             }
             if (player.health==0){
                 game.status=0;
-                alert("Игра окончена");
             }
         },
         self.RenderZombie=function () {
@@ -72,7 +71,6 @@ function TZomby(id,width,height,speed,damage) {
                 if(!checkObj(zombies)) {
                     game.status=0;
                     game.Safe();
-                    setTimeout(function(){alert("Вы победили!")},1000);
                 }
 
             }
