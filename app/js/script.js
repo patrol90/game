@@ -39,9 +39,7 @@ function ready() {
     player.CreateInterface();
     player.posX=playerEl.offsetLeft;
     player.posY=playerEl.offsetTop;
-    CreateZomby(5);
-    Update();
-    magazine.reloading();
+    game.NextRound();
     if(game.level){
         game.GameStartMessage("К бою");
     }

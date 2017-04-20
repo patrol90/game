@@ -17,6 +17,7 @@ var player= {
             magazine.show();
             if (magazine.current){
                 var bullet = new TBullet();
+                player.SoundOfShot();
                 bullet.Create(1,0,0);
                 bullet.Shot();
             }
@@ -97,6 +98,11 @@ var player= {
         aim.style.top=playerEl.offsetHeight/2+"px";
         aim.style.left=playerEl.offsetWidth+"px";
         playerEl.appendChild(aim);
+    },
+    SoundOfShot:function () {
+        var audio = new Audio(); // Создаём новый элемент Audio
+        audio.src = 'img/gun.mp3'; // Указываем путь к звуку "клика"
+        audio.autoplay = true; // Автоматически запускаем
     }
 
 };
@@ -143,7 +149,12 @@ var magazine={
         container.appendChild(MagazineBlock);
     },
     reloading:function () {
+        var audio = new Audio(); // Создаём новый элемент Audio
+        audio.src = 'img/reload3.mp3'; // Указываем путь к звуку "клика"
+        audio.autoplay = true; // Автоматически запускаем
         this.reload();
         this.show();
+
+
     }
 };

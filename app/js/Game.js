@@ -8,9 +8,8 @@ var game={
     win:1,
     Start:function () {
         var progres = JSON.parse(localStorage.getItem("progress"));
-        if(game.level!=progres.level){
+        if(progres!=null && game.level!=progres.level){
             game.level=progres.level;
-            console.log('start');
         }
     },
     Safe:function(){
@@ -23,7 +22,7 @@ var game={
     },
     NextRound:function(){
         game.status=1;
-        CreateZomby(game.level*3,game.level*70);
+        CreateZomby(game.level*2,game.level*50);
         Update();
         magazine.reloading();
     },

@@ -47,6 +47,8 @@ function TZomby(id,width,height,speed,damage) {
         self.Atack=function () {
             if(((self.posX-player.posX)<0)&&((self.posX-player.posX)>-60)&&((self.posY-player.posY)<=0)&&((self.posY-player.posY)>-60)){
                 player.health-=self.Damage;
+                window.navigator.vibrate(1000);
+
             }
             if (player.health==0){
                 game.status=0;
@@ -56,7 +58,9 @@ function TZomby(id,width,height,speed,damage) {
             var angle =self.MoveZobmie();
             self.DomElem.style.left=self.posX +"px";
             self.DomElem.style.top=self.posY +"px";
-            self.DomElem.style.transform="translateZ(0) rotate("+angle+"deg)";
+            if(self.Healthy>0){
+                self.DomElem.style.transform="translateZ(0) rotate("+angle+"deg)";
+            }
             self.HealthyDom.style.width=self.Healthy+"%";
             
             if(self.Healthy<100&&self.Healthy>0){

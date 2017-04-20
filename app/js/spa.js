@@ -5,6 +5,8 @@
 var container=document.querySelector(".container");
 window.onhashchange=SwitchToStateFromURLHash;
 SwitchToStateFromURLHash();
+var progres = JSON.parse(localStorage.getItem("progress"));
+
 function SwitchToStateFromURLHash() {
     var URLHash=window.location.hash;
     URLHash=URLHash.substr(1);
@@ -29,7 +31,8 @@ function SwitchToStateFromURLHash() {
 
             break;
 
-        case "home":
+       case "home":
+
             container.innerHTML=' \
             <div class="block">\
                 <ul>\
@@ -37,8 +40,24 @@ function SwitchToStateFromURLHash() {
                 <li><a href="#record">Рекорды</a></li>\
                 </ul>\
             </div>';
+            document.querySelector("#input_name").addEventListener("change",function () {
+                progres.name=this.value;
+                localStorage.setItem("progress",JSON.stringify(progres));
+            });
+            var name=document.createElement("input");
+            //document.querySelector('.block').appendChild(name);
+
+            if(!progres.name){
+
+                document.querySelector("#input_name").onload=function () {
+                    if(progres){
+                        this.value=progres.name;
+                    }
+                };
+            }
 
             $("head").append($("<link rel='stylesheet' href='css/main.css' type='text/css'  />"));
+
             break;
     }
 }
