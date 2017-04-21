@@ -6,12 +6,6 @@ var game={
     playerName:"",
     level:1,
     win:1,
-    Start:function () {
-        var progres = JSON.parse(localStorage.getItem("progress"));
-        if(progres!=null && game.level!=progres.level){
-            game.level=progres.level;
-        }
-    },
     Safe:function(){
         game.level++;
         game.ShowMessage("Уровень "+game.level);

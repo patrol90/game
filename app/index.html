@@ -5,16 +5,23 @@
   <title>Title</title>
 
   <link rel="stylesheet" href="css/main.css">
-
+  <script src="js/Game.js"></script>
+  <script>
+    function checkLocalStorage() {
+      var progres = JSON.parse(localStorage.getItem("progress"));
+      if(progres){
+        game.playerName=progres.name;
+        if(progres.level){
+          game.level=progres.level;
+        }
+      }
+    }
+    checkLocalStorage();
+  </script>
 </head>
 <body>
 <div class="container">
-  <div class="block">
-    <ul>
-      <li><a href="#game">Начать игру</a></li>
-      <li><a href="#record">Рекорды</a></li>
-    </ul>
-  </div>
+
 </div>
 
 <script src="js/jquery-3.2.1.min.js"></script>

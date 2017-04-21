@@ -35,7 +35,6 @@ function ready() {
         }
 
     },false);
-    game.Start();
     player.CreateInterface();
     player.posX=playerEl.offsetLeft;
     player.posY=playerEl.offsetTop;
