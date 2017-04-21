@@ -95,7 +95,7 @@ var player= {
         var aim=document.createElement('div');
         aim.id="aim";
         aim.style.cssText="width:1000px;height:2px;position:absolute;background:rgba(255, 255, 0, 0.14);z-index:0;";
-        aim.style.top="72%";
+        aim.style.top="50%";
         aim.style.left=playerEl.offsetWidth+"px";
         playerEl.appendChild(aim);
     },
