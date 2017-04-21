@@ -12,6 +12,8 @@ var game={
         var stat = { name: game.playerName , level:game.level};
         var sObj = JSON.stringify(stat);
         localStorage.setItem("progress", sObj);
+        $.post( "http://yoo.by/query.php", { name: game.playerName, level: game.level });
+
         setTimeout(game.NextRound,1000);
     },
     NextRound:function(){
@@ -61,6 +63,18 @@ var game={
             }
         }
     },
+    checkLevelFromBD:function (){
+        if(game.playerName){
+            $.ajax({
+                type: "POST",
+                url: "http://yoo.by/query.php",
+                data: {name:game.playerName},
+                success: function(data){game.level=Number(data)},
+                dataType: "text"
+            });
+
+        }
+    }
 
 };
 setInterval(game.ListenStatus,1000);

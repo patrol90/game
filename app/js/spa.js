@@ -49,6 +49,8 @@ function SwitchToStateFromURLHash() {
                     progres.name=this.value;
                     game.playerName=this.value;
                     localStorage.setItem("progress",JSON.stringify(progres));
+                    game.checkLevelFromBD();
+
                 });
             } else {
                 if(game.level!=1){
