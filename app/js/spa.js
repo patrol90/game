@@ -39,6 +39,7 @@ function SwitchToStateFromURLHash() {
            LoadScriptAsync("js/Player.js");
             if (!game.playerName){
                 container.style.cursor="auto";
+                container.style.background="url(img/main-background.jpg)";
                 container.innerHTML=' \
                 <div class="block">\
                     <ul>\
@@ -58,6 +59,7 @@ function SwitchToStateFromURLHash() {
                 });
             } else {
                 if(game.level!=1){
+                    container.style.background="url(img/main-background.jpg)";
                     container.style.cursor="auto";
                     container.innerHTML=' \
                     <div class="block">\
@@ -70,6 +72,7 @@ function SwitchToStateFromURLHash() {
                        </ul>\
                     </div>';
                 } else {
+                    container.style.background="url(img/main-background.jpg)";
                     container.style.cursor="auto";
                     container.innerHTML=' \
                     <div class="block">\

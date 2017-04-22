@@ -19,11 +19,14 @@ var game={
     },
     NextRound:function(){
         var mass=document.querySelectorAll(".dead");
+        container.style.background="url(img/fon"+randomInteger(1,3)+".jpg";
+        container.style.backgroundSize="100%";
         for (var i=0;i<mass.length;i++){
             container.removeChild(mass[i]);
         }
+        playerEl.style.opacity='1';
         game.status=1;
-        CreateZomby(game.level*2,game.level*300);
+        CreateZomby(game.level+1,game.level*200);
         Update();
         magazine.reloading();
     },
@@ -74,7 +77,7 @@ var game={
                 type: "POST",
                 url: "http://yoo.by/query.php",
                 data: {name:game.playerName},
-                success: function(data){game.level=Number(data)},
+                success: function(data){game.level=Number(data);console.log(data)},
                 dataType: "text"
             });
 
