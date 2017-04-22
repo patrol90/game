@@ -19,9 +19,11 @@ function  TBullet() {
         }
 
         var bullet=document.createElement('span');
-        bullet.style.height="2px";
-        bullet.style.width="8px";
-        bullet.style.background="red";
+        bullet.style.height="4px";
+        bullet.style.width="10px";
+        bullet.style.background="url(img/bullet.png)";
+        bullet.style.backgroundSize='cover';
+
         bullet.style.position="absolute";
         bullet.id='bul'+id;
         self.Element=bullet;

@@ -8,11 +8,11 @@ function TZomby(id,width,height,speed,damage) {
     self.Height=height;
     self.Speed=speed;
     self.Damage=damage;
-    //self.Img=background;
     self.posX=0;
     self.posY=0;
     self.Healthy=100;
     self.HealthyDom='';
+    self.Cofiecent=1;
     self.DomElem;
     self.Angle=0;
     self.MoveZobmie=function () {
@@ -58,17 +58,18 @@ function TZomby(id,width,height,speed,damage) {
             var angle =self.MoveZobmie();
             self.DomElem.style.left=self.posX +"px";
             self.DomElem.style.top=self.posY +"px";
-            if(self.Healthy>0){
+            if(self.Healthy>20){
                 self.DomElem.style.transform="translateZ(0) rotate("+angle+"deg)";
             }
-            self.HealthyDom.style.width=self.Healthy+"%";
+            self.HealthyDom.style.width=(self.Healthy/self.Cofiecent)+"%";
             
-            if(self.Healthy<100&&self.Healthy>0){
+            if((self.Healthy) && self.Healthy>0){
                 self.HealthyDom.style.display="block";
             }
             if(self.Healthy<=0){
                 self.DomElem.style.background="url(img/slow4_a.png) -20px -785px,url(img/blood.png)center center";
                 self.DomElem.style.zIndex='9';
+                self.DomElem.classList.add('dead');
                 self.HealthyDom.style.display="none";
                 delete  zombies[self.id];
 

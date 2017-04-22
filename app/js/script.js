@@ -10,7 +10,6 @@ var playerHealth=document.createElement('div');
 
 
 var pressed={};
-var path={};
 var zombies={};
 
 
@@ -40,7 +39,10 @@ function ready() {
     player.posY=playerEl.offsetTop;
     game.NextRound();
     if(game.level){
-        game.GameStartMessage("К бою");
+        setTimeout(function(){
+            game.GameStartMessage("К бою");
+        },1000)
+
     }
 
 }

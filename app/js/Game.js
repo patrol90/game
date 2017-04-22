@@ -1,6 +1,7 @@
 /**
  * Created by dmitry.sobolevsky on 18.04.2017.
  */
+
 var game={
     status:1,
     playerName:"",
@@ -17,8 +18,12 @@ var game={
         setTimeout(game.NextRound,1000);
     },
     NextRound:function(){
+        var mass=document.querySelectorAll(".dead");
+        for (var i=0;i<mass.length;i++){
+            container.removeChild(mass[i]);
+        }
         game.status=1;
-        CreateZomby(game.level*2,game.level*50);
+        CreateZomby(game.level*2,game.level*300);
         Update();
         magazine.reloading();
     },
@@ -51,7 +56,7 @@ var game={
         },1000)
     },
     ListenStatus:function () {
-        if(player.health==0){
+        if(player.health<=0){
             if(game.win){
                 game.win=0;
                 game.status=0;
@@ -64,7 +69,7 @@ var game={
         }
     },
     checkLevelFromBD:function (){
-        if(game.playerName){
+        if(game.playerName!=''){
             $.ajax({
                 type: "POST",
                 url: "http://yoo.by/query.php",

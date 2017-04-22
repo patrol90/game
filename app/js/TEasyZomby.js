@@ -5,8 +5,9 @@ function TEasyZomby() {
     var self=this;
     TZomby.apply(this,arguments);//наследуем
     self.Create=function (health) {
-        if(!health) health=100;
+        if(!health) health=120;
         self.Healthy=health;
+        self.Cofiecent=self.Healthy/100;
         var zombyEl=document.createElement("div");
         zombyEl.classList.add('zomby');
         zombyEl.classList.add('easy');
@@ -31,7 +32,7 @@ function TEasyZomby() {
         container.appendChild(zombyEl);
         self.DomElem=zombyEl;
         var HealthBar=document.createElement('div');
-        HealthBar.style.cssText="width:"+self.Healthy+"%;height:3px;background:green;position:absolute;bottom:0px;display:none;opacity:0.5";
+        HealthBar.style.cssText="width:"+(self.Healthy/self.Cofiecent)+"%;height:3px;background:green;position:absolute;bottom:0px;display:none;opacity:0.5";
         self.HealthyDom=HealthBar;
         self.DomElem.appendChild(HealthBar);
 

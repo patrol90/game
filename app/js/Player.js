@@ -113,7 +113,7 @@ var magazine={
     width:100,
     height:20,
     border:"black",
-    fill:"yellow",
+    fill:"url(img/bullet-m.png)",
     stock:{},
     delDomBullet:[],
     reload:function () {
@@ -133,6 +133,8 @@ var magazine={
         MagazineBlock.style.position="absolute";
         MagazineBlock.style.right="20px";
         MagazineBlock.style.top="20px";
+        MagazineBlock.style.borderRadius="5px";
+
 
         MagazineBlock.style.padding="5px";
         for (var i=0;i<this.current;i++){
@@ -141,8 +143,9 @@ var magazine={
             MagazineElement.style.width="10%";
             MagazineElement.style.height="100%";
             MagazineElement.style.display="inline-block";
-            MagazineElement.style.borderLeft="1px solid grey";
+            //MagazineElement.style.borderLeft="1px solid grey";
             MagazineElement.style.boxSizing="border-box";
+            MagazineElement.style.backgroundSize="100%";
             MagazineBlock.appendChild(MagazineElement);
 
         }
